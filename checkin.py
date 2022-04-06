@@ -1,7 +1,7 @@
 import requests, time, json, sys
 
 s = requests.Session()
-accounts = os.environ["accounts"]
+accounts = os.environ["ACCOUNTS"]
 
 def main():
     for account in accounts:
