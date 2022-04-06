@@ -23,7 +23,7 @@ def checkin(username, password):
     r1 = s.post(login_url, data=data1, headers=headers1, timeout=5)
     print(r1.json().get("msg"))
 
-    time.sleep(1)
+    time.sleep(7)
 
     target_url = "https://w1.v2free.net/user/checkin"
     headers2 = {
