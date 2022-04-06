@@ -28,11 +28,14 @@ jobs:
         pip3 install -r requirements.txt
     - name: Read config from secrets  #读取机密
       env: 
-        ACCOUNTS: ${{ secrets.ACCOUNTS }} # secrets_id 提供
+        CONFIG_ID: ${{ secrets.CONFIG_ID }} # secrets_id 提供
+        CONFIG_PWD: ${{ secrets.CONFIG_PWD }} # secrets_key 提供
       run: | 
         cp checkin.py checkin1.py
-        echo $ACCOUNTS > accounts.txt
-        sed -i '5 r accounts.txt' checkin1.py
+        echo $CONFIG_ID > configid.txt
+        echo $CONFIG_PWD > configpwd.txt
+        sed -i '5 r configid.txt' checkin1.py
+        sed -i '7 r configpwd.txt' checkin1.py
     - name: Checkin #开始签到
       run: | 
         echo `date +"%Y-%m-%d %H:%M:%S"` begin > time.log
@@ -40,7 +43,8 @@ jobs:
     - name: Delete secrets config #删除机密
       run: | 
         rm -f checkin1.py
-        rm -f accounts.txt
+        rm -f configid.txt
+        rm -f configpwd.txt
     - name: Commit
       run: |
         git config --global user.email founder.yu@foxmail.com
