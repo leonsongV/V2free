@@ -17,9 +17,9 @@ def checkin(username, password):
         "Referer": "https://w1.v2free.net/auth/login",
         }
     data1 = {
-        "email":username,
-        "passwd":password,
-        "code":"",
+        "email": username,
+        "passwd": password,
+        "code": "",
         }
     r1 = s.post(login_url, data=data1, headers=headers1, timeout=5)
     print(r1.json().get("msg"))
@@ -29,7 +29,7 @@ def checkin(username, password):
     target_url = "https://w1.v2free.net/user/checkin"
     headers2 = {
         "Host": "w1.v2free.net",
-        "Content-Length":"0",
+        "Content-Length": "0",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:74.0) Gecko/20100101 Firefox/76.0",
         "Referer": "https://w1.v2free.net/user",
         "Accept-Encoding": "gzip, deflate, br",
@@ -39,6 +39,6 @@ def checkin(username, password):
 
 if __name__ == "__main__":
     try:
-        sys.exit(main())
+        main()
     except Exception as e:
         print(e.args)
