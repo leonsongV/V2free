@@ -1,45 +1,49 @@
 import requests, time, json
 
 s = requests.Session()
+accounts=[
+    #["username","password"],
+    #["username","password"]
 
 
-
-
+]
 
 def main():
-    try:
-        print(username)
-        login(username, password)
-        time.sleep(7)
-        checkin()
-    except Exception as e:
-        print(e.args)
+    for account in accounts:
+        checkin(account[0], account[1])
 
-def login(username, password):
-    url = "https://w1.v2free.net/auth/login"
-    headers = {
+def checkin(username, password):
+
+    print(username)
+
+    login_url = "https://w1.v2free.net/auth/login"
+    headers1 = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:74.0) Gecko/20100101 Firefox/76.0",
         "Referer": "https://w1.v2free.net/auth/login",
         }
-    data = {
+    data1 = {
         "email":username,
         "passwd":password,
         "code":"",
         }
-    r = s.post(url, data=data, headers=headers, timeout=5)
-    print(r.json().get("msg"))
-    return s
+    r1 = s.post(login_url, data=data1, headers=headers1, timeout=5)
+    print(r1.json().get("msg"))
 
-def checkin():
-    url = "https://w1.v2free.net/user/checkin"
-    headers = {
+    time.sleep(7)
+
+    target_url = "https://w1.v2free.net/user/checkin"
+    headers2 = {
         "Host": "w1.v2free.net",
         "Content-Length":"0",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:74.0) Gecko/20100101 Firefox/76.0",
         "Referer": "https://w1.v2free.net/user",
         "Accept-Encoding": "gzip, deflate, br",
     }
-    r = s.post(url, headers=headers, timeout=5)
-    print(r.json().get("msg"))
+    r2 = s.post(target_url, headers=headers2, timeout=5)
+    print(r2.json().get("msg"))
+
 if __name__ == "__main__":
-    main()
+    try:
+        sys.exit(main())
+    except Exception as e:
+        print(e.args)
