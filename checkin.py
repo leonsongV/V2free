@@ -4,14 +4,12 @@ s = requests.Session()
 
 
 
+
 def main():
-    for account in accounts:
-        checkin(account[0], account[1])
+    checkin(username, password)
 
 def checkin(username, password):
-
     print(username)
-
     login_url = "https://w1.v2free.net/auth/login"
     headers1 = {
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:74.0) Gecko/20100101 Firefox/76.0",
@@ -25,7 +23,7 @@ def checkin(username, password):
     r1 = s.post(login_url, data=data1, headers=headers1, timeout=5)
     print(r1.json().get("msg"))
 
-    time.sleep(7)
+    time.sleep(1)
 
     target_url = "https://w1.v2free.net/user/checkin"
     headers2 = {
