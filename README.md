@@ -2,9 +2,13 @@
 
 配置参数：依次点击上栏[Setting] -> [Security] -> [Secrets] -> [Actions] -> [New repository secrets]
 
-Name: ACCOUNT
+Name: CONFIG_ID
 
-Value: r'['1@gmail.com','1'],['2@outlook.com','2']'
+Value: username = r'1@gmail.com'
+
+Name: CONFIG_PWD
+
+Value: password = r'123567'
 
 一定要注意前面 r 和 单引号！
 
