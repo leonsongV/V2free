@@ -1,12 +1,7 @@
 import requests, time, json, sys
 
 s = requests.Session()
-accounts=[
-    #['username','password'],
-    #['username','password']
-
-
-]
+accounts = os.environ["accounts"]
 
 def main():
     for account in accounts:
