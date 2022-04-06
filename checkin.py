@@ -1,9 +1,9 @@
-import requests, time, json
+import requests, time, json, sys
 
 s = requests.Session()
 accounts=[
-    #["username","password"],
-    #["username","password"]
+    #['username','password'],
+    #['username','password']
 
 
 ]
