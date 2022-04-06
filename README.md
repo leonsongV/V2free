@@ -4,11 +4,11 @@
 
 Name: CONFIG_ID
 
-Value: username = r'1@gmail.com'
+Value: username = r'你的邮箱'
 
 Name: CONFIG_PWD
 
-Value: password = r'123567'
+Value: password = r'你的密码'
 
 一定要注意前面 r 和 单引号！
 
