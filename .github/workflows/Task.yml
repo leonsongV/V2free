@@ -26,10 +26,9 @@ jobs:
     - name: requirements
       run: |
         pip3 install -r requirements.txt
-    - name: Read config from secrets  #读取机密
+    - name: Checkin #开始签到
       env: 
         ACCOUNTS: ${{ secrets.ACCOUNTS }} # accounts 提供
-    - name: Checkin #开始签到
       run: | 
         echo `date +"%Y-%m-%d %H:%M:%S"` begin > time.log
         python checkin.py
