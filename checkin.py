@@ -1,7 +1,8 @@
-import requests, time, json, sys, os
+import requests, time, json
 
 s = requests.Session()
-accounts = os.environ["ACCOUNTS"]
+
+
 
 def main():
     for account in accounts:
