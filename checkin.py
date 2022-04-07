@@ -27,8 +27,8 @@ class CheckIn(object):
             "Referer": "https://w1.v2free.net/auth/login",
             }
         data = {
-            "email": username,
-            "passwd": password,
+            "email": self.username,
+            "passwd": self.password,
             "code": "",
             }
         r = self.client.post(self.login_url, data=data, headers=headers, timeout=5)
