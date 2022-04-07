@@ -6,7 +6,7 @@ on:
   push:
     branches: [ master ]
   schedule:
-    - cron: 7,32 1,9,16 * * *
+    - cron: 38-40 * * * *
   watch:
     types: [ started ]
 
