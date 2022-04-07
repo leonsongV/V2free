@@ -31,8 +31,8 @@ class CheckIn(object):
             "passwd": self.password,
             "code": "",
             }
-        r = self.client.post(self.login_url, data=data, headers=headers, timeout=5)
-        print(r1.json()["msg"])
+        response = self.client.post(self.login_url, data=data, headers=headers, timeout=5)
+        print(response.json()["msg"])
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='V2ray签到脚本')
