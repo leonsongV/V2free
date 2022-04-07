@@ -1,57 +1,61 @@
-name: V2freeCheckin
+name: V2rayCheckin
 
-on: 
-  release:
-    types: [published]
+on:
   push:
-    branches: 
-      - master
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
   schedule:
-    - cron: 27 7,17 * * *
-  watch:
-    types: [started]
-   
+    - cron: 7 9,16 * * *
+
 jobs:
-   Task:
+  check-in:
     runs-on: ubuntu-latest
     if: github.event.repository.owner.id == github.event.sender.id  # 自己点的 start
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@master
-    - name: Set up Python #安装python
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.8
+    - uses: actions/checkout@v2
+
+    - name: Install Python
+      run: |
+        sudo apt update && \
+        sudo apt install python3
+      
     - name: requirements
       run: |
         pip3 install -r requirements.txt
-    - name: Read config from secrets  #读取机密
-      env: 
-        CONFIG_ID: ${{ secrets.CONFIG_ID }} # secrets_id 提供
-        CONFIG_PWD: ${{ secrets.CONFIG_PWD }} # secrets_key 提供
-      run: | 
-        cp checkin.py checkin1.py
-        echo $CONFIG_ID > configid.txt
-        echo $CONFIG_PWD > configpwd.txt
-        sed -i '5 r configid.txt' checkin1.py
-        sed -i '7 r configpwd.txt' checkin1.py
-    - name: Checkin #开始签到
-      run: | 
-        echo `date +"%Y-%m-%d %H:%M:%S"` begin > time.log
-        python checkin1.py
-    - name: Delete secrets config #删除机密
-      run: | 
-        rm -f checkin1.py
-        rm -f configid.txt
-        rm -f configpwd.txt
-    - name: Commit
+        
+    - name: Checkin
       run: |
-        git config --global user.email founder.yu@foxmail.com
-        git config --global user.name founder-yu
-        git add .
-        git commit -m "update" -a
-    - name: Push changes
-      uses: ad-m/github-push-action@master
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        user='${{ secrets.USER }}'
+        pwd='${{ secrets.PWD }}'
+        
+        user_list=()
+        pwd_list=()
+
+        IFS=","
+
+        for u in ${user[*]}
+        do
+        user_list[${#user_list[*]}]=${u}
+        done
+
+        for p in ${pwd[*]}
+        do
+        pwd_list[${#pwd_list[*]}]=${p}
+        done
+
+        user_num=${#user_list[*]}
+        pwd_num=${#pwd_list[*]}
+
+        if [ $user_num != $pwd_num ];then
+        echo "账号和密码个数不对应"
+        exit 1
+        else
+        echo "共有 $user_num 个账号，即将开始签到"
+        fi
+
+        for ((i=0;i<$user_num;i++))
+        do
+        python3 checkin.py --username ${user_list[$i]} --password ${pwd_list[$i]}
+        done
