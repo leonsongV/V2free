@@ -61,3 +61,13 @@ jobs:
         do
         python3 checkin.py --username ${user_list[$i]} --password ${pwd_list[$i]}
         done
+    - name: Commit
+      run: |
+        git config --global user.email founder.yu@foxmail.com
+        git config --global user.name founder-yu
+        git add .
+        git commit -m "签到" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
