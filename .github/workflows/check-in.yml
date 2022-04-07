@@ -8,7 +8,7 @@ on:
   push:
     branches: [ master ]
   schedule:
-    - cron: '7 2,9,16 * * *'
+    - cron: '7 9,16 * * *'
 
 jobs:
   check-in:
