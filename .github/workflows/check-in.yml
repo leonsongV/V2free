@@ -1,19 +1,18 @@
 name: V2freeCheckin
 
 on:
+  workflow_dispatch:
+  
   release:
     types: [ published ]
   push:
     branches: [ master ]
   schedule:
-    - cron: 7 2,9,16 * * *
-  watch:
-    types: [ started ]
+    - cron: "7 2,9,16 * * *"
 
 jobs:
   check-in:
     runs-on: ubuntu-latest
-    if: github.event.repository.owner.id == github.event.sender.id  # 自己点的 start
 
     steps:
     - uses: actions/checkout@v2
