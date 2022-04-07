@@ -1,44 +1,43 @@
-import requests, time, json
+import requests, json
 
-s = requests.Session()
-
-
-
-
-
-def main():
-    checkin(username, password)
-
-def checkin(username, password):
-    print(username)
+class CheckIn(object):
+    client = requests.Session()
     login_url = "https://w1.v2free.net/auth/login"
-    headers1 = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:74.0) Gecko/20100101 Firefox/76.0",
-        "Referer": "https://w1.v2free.net/auth/login",
-        }
-    data1 = {
-        "email": username,
-        "passwd": password,
-        "code": "",
-        }
-    r1 = s.post(login_url, data=data1, headers=headers1, timeout=5)
-    print(r1.json().get("msg"))
+    sign_url = ("https://w1.v2free.net/user/checkin")
 
-    time.sleep(7)
+    def __init__(self, username, password):
+        self.username = username
+        self.password = password
 
-    target_url = "https://w1.v2free.net/user/checkin"
-    headers2 = {
-        "Host": "w1.v2free.net",
-        "Content-Length": "0",
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:74.0) Gecko/20100101 Firefox/76.0",
-        "Referer": "https://w1.v2free.net/user",
-        "Accept-Encoding": "gzip, deflate, br",
-    }
-    r2 = s.post(target_url, headers=headers2, timeout=5)
-    print(r2.json().get("msg"))
+    def check_in(self):
+        self.login()
+        headers = {
+            "Host": "w1.v2free.net",
+            "Content-Length": "0",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:74.0) Gecko/20100101 Firefox/76.0",
+            "Referer": "https://w1.v2free.net/user",
+            "Accept-Encoding": "gzip, deflate, br",
+        }
+    response = self.client.post(self.sign_url, headers=headers, timeout=5)
+    print(response.json()["msg"])
+
+    def login(self):
+        headers = {
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:74.0) Gecko/20100101 Firefox/76.0",
+            "Referer": "https://w1.v2free.net/auth/login",
+            }
+        data = {
+            "email": username,
+            "passwd": password,
+            "code": "",
+            }
+        r = self.client.post(self.login_url, data=data, headers=headers, timeout=5)
+        print(r1.json()["msg"])
 
 if __name__ == "__main__":
-    try:
-        main()
-    except Exception as e:
-        print(e.args)
+    parser = argparse.ArgumentParser(description='V2ray签到脚本')
+    parser.add_argument('--username', type=str, help='账号')
+    parser.add_argument('--password', type=str, help='密码')
+    args = parser.parse_args()
+    helper = CheckIn(args.username, args.password)
+    helper.check_in()
