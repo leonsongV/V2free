@@ -1,4 +1,4 @@
-import requests, json
+import requests, json, argparse
 
 class CheckIn(object):
     client = requests.Session()
