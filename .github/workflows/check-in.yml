@@ -66,7 +66,7 @@ jobs:
         git config --global user.email founder.yu@foxmail.com
         git config --global user.name founder-yu
         git add .
-        git commit -m "签到" -a
+        git commit -m "Update" -a
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
