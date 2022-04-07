@@ -18,8 +18,8 @@ class CheckIn(object):
             "Referer": "https://w1.v2free.net/user",
             "Accept-Encoding": "gzip, deflate, br",
         }
-    response = self.client.post(self.sign_url, headers=headers, timeout=5)
-    print(response.json()["msg"])
+        response = self.client.post(self.sign_url, headers=headers, timeout=5)
+        print(response.json()["msg"])
 
     def login(self):
         headers = {
