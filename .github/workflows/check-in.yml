@@ -1,12 +1,14 @@
 name: V2freeCheckin
 
 on:
+  release:
+    types: [ published ]
   push:
     branches: [ master ]
-  pull_request:
-    branches: [ master ]
   schedule:
-    - cron: 7,8 1,9,16 * * *
+    - cron: 7, 9,16 * * *
+  watch:
+    types: [ started ]
 
 jobs:
   check-in:
