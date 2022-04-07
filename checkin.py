@@ -22,6 +22,7 @@ class CheckIn(object):
         print(response.json()["msg"])
 
     def login(self):
+        print(self.username)
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:74.0) Gecko/20100101 Firefox/76.0",
             "Referer": "https://w1.v2free.net/auth/login",
