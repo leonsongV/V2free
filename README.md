@@ -1,6 +1,7 @@
 # V2free
 
 请先Fork到自己仓库，之后按照以下过程配置：
+
 配置参数：依次点击上栏[Setting] -> [Security] -> [Secrets] -> [Actions] -> [New repository secrets]，示例如下：
 |Name|Value|
 |:--:|:--:|
