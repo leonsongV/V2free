@@ -3,7 +3,7 @@ import requests, json, argparse
 class CheckIn(object):
     client = requests.Session()
     login_url = "https://w1.v2free.net/auth/login"
-    sign_url = ("https://w1.v2free.net/user/checkin")
+    sign_url = "https://w1.v2free.net/user/checkin"
 
     def __init__(self, username, password):
         self.username = username
