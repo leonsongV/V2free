@@ -1,4 +1,6 @@
 import requests, json, argparse
+import os
+import config
 from push import pushplus
 
 class CheckIn(object):
