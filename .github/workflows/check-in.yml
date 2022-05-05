@@ -2,6 +2,11 @@ name: V2freeCheckin
 
 on:
   watch:
+    types: [ started 
+name: V2freeCheckin
+
+on:
+  watch:
     types: [ started ]
   release:
     types: [ published ]
@@ -27,38 +32,41 @@ jobs:
         pip3 install -r requirements.txt
         
     - name: Checkin
-      env:
-          PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN }}
       run: |
+        echo `date +"%Y-%m-%d %H:%M:%S"` Checkin > time.log
         user='${{ secrets.USER }}'
         pwd='${{ secrets.PWD }}'
-
+        
         user_list=()
         pwd_list=()
-
         IFS=","
-
         for u in ${user[*]}
         do
         user_list[${#user_list[*]}]=${u}
         done
-
         for p in ${pwd[*]}
         do
         pwd_list[${#pwd_list[*]}]=${p}
         done
-
         user_num=${#user_list[*]}
         pwd_num=${#pwd_list[*]}
-
         if [ $user_num != $pwd_num ];then
         echo "账号和密码个数不对应"
         exit 1
         else
         echo "共有 $user_num 个账号，即将开始签到"
         fi
-
         for ((i=0;i<$user_num;i++))
         do
-        python3 checkin.py --username ${user_list[$i]} --password ${pwd_list[$i]} 
+        python3 checkin.py --username ${user_list[$i]} --password ${pwd_list[$i]}
         done
+    - name: Commit
+      run: |
+        git config --global user.email 349589369@qq.com
+        git config --global user.name Jejz168
+        git add .
+        git commit -m "Update time.log" -a
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
