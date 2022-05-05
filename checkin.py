@@ -43,9 +43,7 @@ if __name__ == "__main__":
     parser.add_argument('--password', type=str, help='密码')
     args = parser.parse_args()
     helper = CheckIn(args.username, args.password)
-    helper.check_in()
-    res = cd
-    title = 'V2free'
-    send(title=title, content=res)
+    res = helper.main()
+    send('V2free', res)
 
  
