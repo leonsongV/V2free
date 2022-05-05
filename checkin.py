@@ -1,6 +1,5 @@
 import requests, json, argparse
 import os
-import config
 from sendNotify import send
 
 class CheckIn(object):
