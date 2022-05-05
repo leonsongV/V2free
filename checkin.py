@@ -37,14 +37,14 @@ class CheckIn(object):
             }
         response = self.client.post(self.login_url, data=data, headers=headers, timeout=5)
         print(response.json()["msg"])
-
+        
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='V2ray签到脚本')
     parser.add_argument('--username', type=str, help='账号')
     parser.add_argument('--password', type=str, help='密码')
     args = parser.parse_args()
     helper = CheckIn(args.username, args.password)
-    helper.check_in()
+    res = helper.check_in()
     TOKEN = os.environ.get('PUSH_PLUS_TOKEN') or config.PUSH_PLUS_TOKEN
     if TOKEN:
         print('检测到PUSH_PLUS_TOKEN, 准备推送')
