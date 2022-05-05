@@ -27,6 +27,8 @@ jobs:
         pip3 install -r requirements.txt
         
     - name: Checkin
+      env:
+          PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN }}
       run: |
         echo `date +"%Y-%m-%d %H:%M:%S"` Checkin > time.log
         user='${{ secrets.USER }}'
