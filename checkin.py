@@ -45,6 +45,7 @@ if __name__ == "__main__":
     helper = CheckIn(args.username, args.password)
     res = helper.check_in()
     title = 'V2free'
-    send(title=title, content=res)
+    TOKEN = os.environ.get('PUSH_PLUS_TOKEN') or config.PUSH_PLUS_TOKEN
+    send(title=title, content=res, token=TOKEN)
 
  
