@@ -45,7 +45,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     helper = CheckIn(args.username, args.password)
     helper.check_in()
-    parser.add_argument('--PUSH_PLUS_TOKEN', type=str, help='token')
+    TOKEN = os.environ.get('PUSH_PLUS_TOKEN') or config.PUSH_PLUS_TOKEN
     if TOKEN:
         print('检测到PUSH_PLUS_TOKEN, 准备推送')
         title = 'V2free' + ('成功' if res.get('error_code') == 0 else '失败')
