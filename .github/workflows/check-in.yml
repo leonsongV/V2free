@@ -63,11 +63,11 @@ jobs:
         done
     - name: Commit
       run: |
-        git config --global user.email founder.yu@foxmail.com
-        git config --global user.name founder-yu
+        git config --global user.email 349589369@qq.com
+        git config --global user.name Jejz168
         git add .
         git commit -m "Update time.log" -a
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.PAT }}
