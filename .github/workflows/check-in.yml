@@ -28,7 +28,7 @@ jobs:
         
     - name: Checkin
       run: |
-        echo `date -d"%Y-%m-%d %H:%M:%S"` Checkin > time.log
+        echo `date -d @1629535772 "+%Y-%m-%d %H:%M:%S"` Checkin > time.log
         user='${{ secrets.USER }}'
         pwd='${{ secrets.PWD }}'
         
