@@ -49,6 +49,6 @@ if __name__ == "__main__":
     TOKEN = os.environ.get('PUSH_PLUS_TOKEN') or config.PUSH_PLUS_TOKEN
     if TOKEN:
         print('检测到PUSH_PLUS_TOKEN, 准备推送')
-        title = 'V2free' + ('成功')
+        title = 'V2free'
         pushplus(title=title, content=res, token=TOKEN)
-     print('代码完毕')
+ 
