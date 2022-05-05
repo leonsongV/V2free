@@ -50,3 +50,4 @@ if __name__ == "__main__":
         print('检测到PUSH_PLUS_TOKEN, 准备推送')
         title = 'V2free' + ('成功')
         pushplus(title=title, content=res, token=TOKEN)
+     print('代码完毕')
