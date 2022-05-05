@@ -43,7 +43,7 @@ if __name__ == "__main__":
     parser.add_argument('--password', type=str, help='密码')
     args = parser.parse_args()
     helper = CheckIn(args.username, args.password)
-    res = helper.main()
+    res = helper.check_in()
     send('V2free', res)
 
  
