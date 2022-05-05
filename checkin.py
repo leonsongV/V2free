@@ -43,9 +43,9 @@ if __name__ == "__main__":
     parser.add_argument('--password', type=str, help='密码')
     args = parser.parse_args()
     helper = CheckIn(args.username, args.password)
-    res = helper.check_in()
+    helper.check_in()
+    res = cd
     title = 'V2free'
-    TOKEN = os.environ.get('PUSH_PLUS_TOKEN') or config.PUSH_PLUS_TOKEN
-    send(title=title, content=res, token=TOKEN)
+    send(title=title, content=res)
 
  
