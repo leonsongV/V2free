@@ -61,9 +61,3 @@ jobs:
         do
         python3 checkin.py --username ${user_list[$i]} --password ${pwd_list[$i]}
         done
-    - name: Commit
-      run: |
-        git config --global user.email 349589369@qq.com
-        git config --global user.name Jejz168
-        git add .
-        git commit -m "Update time.log" -a
