@@ -45,6 +45,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     helper = CheckIn(args.username, args.password)
     res = helper.check_in()
+    print(res)
     TOKEN = os.environ.get('PUSH_PLUS_TOKEN') or config.PUSH_PLUS_TOKEN
     if TOKEN:
         print('检测到PUSH_PLUS_TOKEN, 准备推送')
