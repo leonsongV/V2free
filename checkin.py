@@ -44,6 +44,7 @@ if __name__ == "__main__":
     args = parser.parse_args()
     helper = CheckIn(args.username, args.password)
     res = helper.check_in()
-    send("V2free", res)
+    title = 'V2free'
+    send(title=title, content=res)
 
  
