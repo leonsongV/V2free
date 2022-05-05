@@ -27,14 +27,16 @@ jobs:
         pip3 install -r requirements.txt
         
     - name: Checkin
+      env:
+          PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN }}
       run: |
         echo `date +"%Y-%m-%d %H:%M:%S"` Checkin > time.log
         user='${{ secrets.USER }}'
         pwd='${{ secrets.PWD }}'
-        push='${{ secrets.PUSH_PLUS_TOKEN }}'
+
         user_list=()
         pwd_list=()
-        push_list=()
+
         IFS=","
 
         for u in ${user[*]}
@@ -59,5 +61,5 @@ jobs:
 
         for ((i=0;i<$user_num;i++))
         do
-        python3 checkin.py --username ${user_list[$i]} --password ${pwd_list[$i]} --PUSH_PLUS_TOKEN ${push_list[$i]}
+        python3 checkin.py --username ${user_list[$i]} --password ${pwd_list[$i]} 
         done
