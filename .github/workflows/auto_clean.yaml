@@ -1,0 +1,15 @@
+name: 'workflows日志自动清理'
+
+on:
+  schedule:
+    - cron: '0 0 */3 * *'
+  workflow_dispatch:
+
+jobs:
+  del_runs:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete workflow runs
+        uses: Jejz168/delete-workflow-runs@main
+        with:
+          retain_days: '3'
