@@ -65,6 +65,8 @@ if __name__ == "__main__":
         print("----------恩山论坛开始尝试签到----------")
         e = main()
     if SCKEY != '':
-        sendurl = 'http://www.pushplus.plus/send?token=' + SCKEY + '&title=机场签到&content=' + e
+        a = 'http://www.pushplus.plus/send?token='
+        ba = '&title=机场签到&content='
+        sendurl = a + SCKEY + ba + e
         r = requests.get(url=sendurl)
         print("----------恩山论坛签到执行完毕----------")
