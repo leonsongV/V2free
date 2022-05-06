@@ -11,7 +11,7 @@ except:
 from lxml import etree
 
 cookie = os.environ.get("cookie_enshan")
-SCKEY = os.environ.get("PUSH_PLUS_TOKEN")
+
 def run(*arg):
     msg = ""
     s = requests.Session()
@@ -63,10 +63,5 @@ def main(*arg):
 if __name__ == "__main__":
     if cookie:
         print("----------恩山论坛开始尝试签到----------")
-        e = main()
-    if SCKEY != '':
-        a = 'http://www.pushplus.plus/send?token='
-        ba = '&title=机场签到&content='
-        sendurl = a + SCKEY + ba + e
-        r = requests.get(url=sendurl)
+        main()
         print("----------恩山论坛签到执行完毕----------")
