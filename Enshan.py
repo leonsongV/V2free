@@ -63,8 +63,8 @@ def main(*arg):
 if __name__ == "__main__":
     if cookie:
         print("----------恩山论坛开始尝试签到----------")
-        main()
+        e = main()
     if SCKEY != '':
-        sendurl = 'http://www.pushplus.plus/send?token=' + SCKEY + '&title=机场签到&content=' + msg()
+        sendurl = 'http://www.pushplus.plus/send?token=' + SCKEY + '&title=机场签到&content=' + e
         r = requests.get(url=sendurl)
         print("----------恩山论坛签到执行完毕----------")
