@@ -1,7 +1,6 @@
 #https://github.com/leeairw/Enshan.git
 
 import requests, json, time, os, sys
-from sendNotify import send
 
 sys.path.append('.')
 requests.packages.urllib3.disable_warnings()
@@ -64,6 +63,5 @@ def main(*arg):
 if __name__ == "__main__":
     if cookie:
         print("----------恩山论坛开始尝试签到----------")
-        res = main()
-        send('恩山', res)
+        main()
         print("----------恩山论坛签到执行完毕----------")
