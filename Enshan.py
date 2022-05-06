@@ -11,7 +11,7 @@ except:
 from lxml import etree
 
 cookie = os.environ.get("cookie_enshan")
-SCKEY = os.environ.get['PUSH_PLUS_TOKEN']
+SCKEY = os.environ.get("PUSH_PLUS_TOKEN")
 def run(*arg):
     msg = ""
     s = requests.Session()
