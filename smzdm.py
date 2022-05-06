@@ -114,7 +114,7 @@ class SignBot(object):
 
 if __name__ == '__main__':
     bot = SignBot()
-    cookies = os.environ[KEY_OF_COOKIE]
+    cookies = os.environ.get("SMZDM_COOKIE")
     cookieList = cookies.split("&")
     logout("检测到{}个cookie记录\n开始签到".format(len(cookieList)))
     index = 0
