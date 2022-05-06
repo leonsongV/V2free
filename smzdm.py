@@ -116,7 +116,6 @@ if __name__ == '__main__':
     bot = SignBot()
     cookies = os.environ.get("SMZDM_COOKIE")
     cookieList = cookies
-    logout("检测到{}个cookie记录\n开始签到".format(len(cookieList)))
     index = 0
     for c in cookieList:
         bot.load_cookie_str(c)
@@ -131,9 +130,9 @@ if __name__ == '__main__':
             #result['data']["silver"],
             #result['data']["prestige"],
             result['data']["cards"])
-        logout(msg)
-        logout("开始推送")
+        print(msg)
+        print("开始推送")
         # telegram_bot("张大妈自动签到", msg)
         index += 1
-    logout("签到结束")
+    print("签到结束")
     send('张大妈自动签到',msg)
