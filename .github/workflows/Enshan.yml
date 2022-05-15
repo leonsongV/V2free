@@ -23,3 +23,12 @@ jobs:
           cookie_enshan: ${{ secrets.cookie_enshan }}
         run: |
           python3 Enshan.py
+          
+      - name: Telegram notification
+        run: |
+         MSG="
+         编译时间：${{ env.DATE }}
+         OpenWrt 更新信息：${{ env.useVersionInfo }}
+         ${{ env.PRODUCT_NAME }} 编译完成
+         "
+         curl "http://www.pushplus.plus/send" -d "token=52054a984c304159a2ae0d6e69899688&title=2&content=33"
