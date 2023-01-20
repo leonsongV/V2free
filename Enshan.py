@@ -1,67 +1,58 @@
-#https://github.com/leeairw/Enshan.git
+# -*- coding: utf-8 -*-
+"""
+cron: 55 7 * * *
+new Env('恩山论坛');
+"""
 
-import requests, json, time, os, sys
+import os
+import requests, re, traceback, sys
+from io import StringIO
 
-sys.path.append('.')
-requests.packages.urllib3.disable_warnings()
-try:
-    from pusher import pusher
-except:
-    pass
-from lxml import etree
+from notify import send
 
-cookie = os.environ.get("cookie_enshan")
+class EnShan:
+    def __init__(self, cookie):
+        self.sio = StringIO()
+        self.Cookies = cookie
+        self.cookie = ''
 
-def run(*arg):
-    msg = ""
-    s = requests.Session()
-    s.headers.update({'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36'})
-
-    # 签到
-    url = "https://www.right.com.cn/forum/home.php?mod=spacecp&ac=credit&op=log&suboperation=creditrulelog"
-    headers = {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.141 Safari/537.36',
-        'Connection' : 'keep-alive',
-        'Host' : 'www.right.com.cn',
-        'Upgrade-Insecure-Requests' : '1',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-        'Accept-Language' : 'zh-CN,zh;q=0.8,zh-TW;q=0.7,zh-HK;q=0.5,en-US;q=0.3,en;q=0.2',
-        'Accept-Encoding' : 'gzip, deflate, br',
-        'Cookie': cookie
-    }
-    try:
-        r = s.get(url, headers=headers, timeout=120)
-        # print(r.text)
-        if '每天登录' in r.text:
-            h = etree.HTML(r.text)
-            data = h.xpath('//tr/td[6]/text()')
-            msg += f'签到成功或今日已签到，最后签到时间：{data[0]}'
+    def sign(self):
+        url = "https://www.right.com.cn/FORUM/home.php?mod=spacecp&ac=credit&showcredit=1"
+        headers = {
+            'User-Agent':
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.131 Safari/537.36',
+            'Cookie': self.cookie
+        }
+        res = requests.get(url, headers=headers)
+        if '登录' in res.text:
+            print("Cookie失效")
+            self.sio.write("Cookie失效\n")
         else:
-            msg += '签到失败，可能是cookie失效了！'
-            pusher(msg)
-    except:
-        msg = '无法正常连接到网站，请尝试改变网络环境，试下本地能不能跑脚本，或者换几个时间点执行脚本'
-    return msg + '\n'
+            coin = re.findall("恩山币: </em>(.*?)nb &nbsp;", res.text)[0]
+            print(f"签到成功, 剩余{coin}nb")
+            self.sio.write(f"签到成功, 剩余{coin}nb\n")
 
-def main(*arg):
-    msg = ""
-    global cookie
-    if "\\n" in cookie:
-        clist = cookie.split("\\n")
-    else:
-        clist = cookie.split("\n")
-    i = 0
-    while i < len(clist):
-        msg += f"第 {i+1} 个账号开始执行任务\n"
-        cookie = clist[i]
-        msg += run(cookie)
-        i += 1
-    print(msg[:-1])
-    return msg[:-1]
+    def SignIn(self):
+        print("【恩山论坛 日志】")
+        self.sio.write("【恩山论坛】\n")
+        for cookie in self.Cookies:
+            cookie = cookie.get("user")
+            print(f"{cookie.get('name')} 开始签到...")
+            self.sio.write(f"{cookie.get('name')}: ")
+            self.cookie = cookie.get('cookie')
+            try:
+                self.sign()
+            except:
+                print(f"{cookie.get('name')}: 异常 {traceback.format_exc()}")
+                if '签到存在异常, 请自行查看签到日志' not in self.sio.getvalue():
+                    self.sio.write('签到存在异常, 请自行查看签到日志\n')
+        return self.sio
 
-
-if __name__ == "__main__":
-    if cookie:
-        print("----------恩山论坛开始尝试签到----------")
-        main()
-        print("----------恩山论坛签到执行完毕----------")
+if __name__ == '__main__':
+  Cookies = os.getenv("ENSHAN_COOKIE")
+  if Cookies != None:
+    Cookies = json.loads(Cookies)
+    enshan = EnShan(Cookies)
+    sio = enshan.SignIn()
+    print(f'\n{sio.getvalue()}')
+    send('恩山论坛', sio.getvalue())
