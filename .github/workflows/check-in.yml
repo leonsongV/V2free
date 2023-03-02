@@ -23,7 +23,7 @@ jobs:
         
     - name: Checkin
       run: |
-        echo `date +"%Y-%m-%d %H:%M:%S"` Checkin > time.log
+        echo `TZ=UTC-8 date +"%Y-%m-%d %H:%M:%S"` 喵喵喵......我来啦😁😁😁 > time.log
         user='${{ secrets.USER }}'
         pwd='${{ secrets.PWD }}'
         
