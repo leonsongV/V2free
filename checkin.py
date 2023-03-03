@@ -24,6 +24,7 @@ class CheckIn(object):
         response = self.client.post(self.sign_url, headers=headers, timeout=5)
         message = response.json()["msg"]
         print(response.json()["msg"])
+        notify.send("V2free签到", message)
 
     def login(self):
         print(self.username)
@@ -38,9 +39,7 @@ class CheckIn(object):
             }
         response = self.client.post(self.login_url, data=data, headers=headers, timeout=5)
         print(response.json()["msg"])
-        
-    def message(self): 
-        notify.send("V2free签到", message)
+
         
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='V2ray签到脚本')
