@@ -1,6 +1,7 @@
 #https://github.com/founder-yu/Checkin.git
 import requests, json, argparse
 import os
+import notify
 
 class CheckIn(object):
     client = requests.Session()
@@ -35,6 +36,7 @@ class CheckIn(object):
             "code": "",
             }
         response = self.client.post(self.login_url, data=data, headers=headers, timeout=5)
+        message = response.json()["msg"]
         print(response.json()["msg"])
         
 if __name__ == "__main__":
@@ -44,4 +46,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
     helper = CheckIn(args.username, args.password)
     helper.check_in()
-
+    notify.send("V2free签到", message)
