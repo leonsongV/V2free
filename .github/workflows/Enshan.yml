@@ -21,5 +21,6 @@ jobs:
       - name: 恩山
         env:
           cookie_enshan: ${{ secrets.cookie_enshan }}
+          PUSH_PLUS_TOKEN: ${{ secrets.PUSH_PLUS_TOKEN }}
         run: |
           python3 Enshan.py
