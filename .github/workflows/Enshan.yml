@@ -11,9 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@main
       - name: 'setup python'
-        uses: actions/setup-python@master
+        uses: actions/setup-python@main
         with: 
-          python-version: 3.8
+          python-version: 3.9
 
       - name: requirements
         run : pip3 install -r requirements.txt
