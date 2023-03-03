@@ -40,7 +40,9 @@ class CheckIn(object):
         message = response.json()["msg"]
         print(response.json()["msg"])
         
- notify.send("V2free签到", message)    
+    def message(self): 
+        notify.send("V2free签到", message)
+        
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='V2ray签到脚本')
     parser.add_argument('--username', type=str, help='账号')
