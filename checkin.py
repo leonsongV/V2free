@@ -22,7 +22,7 @@ class CheckIn(object):
             "Accept-Encoding": "gzip, deflate, br",
         }
         response = self.client.post(self.sign_url, headers=headers, timeout=5)
-        message += response.json()["msg"]
+        message = response.json()["msg"]
         print(response.json()["msg"])
 
     def login(self):
@@ -37,7 +37,6 @@ class CheckIn(object):
             "code": "",
             }
         response = self.client.post(self.login_url, data=data, headers=headers, timeout=5)
-        message = response.json()["msg"]
         print(response.json()["msg"])
         
     def message(self): 
