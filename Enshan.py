@@ -1,4 +1,4 @@
-import requests, json, time, os, sys
+import requests, json, time, os, sys, notify
 sys.path.append('.')
 requests.packages.urllib3.disable_warnings()
 try:
@@ -54,6 +54,7 @@ def main(*arg):
         msg += run(cookie)
         i += 1
     print(msg[:-1])
+    notify.send("恩山签到", msg)
     return msg[:-1]
 
 
