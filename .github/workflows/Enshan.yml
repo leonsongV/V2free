@@ -11,10 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@main
       
-      - name: Install Python
-        run: |
-          sudo apt update && \
-          sudo apt install python3
+      - name: Initialize Python
+        uses: actions/setup-python@main
+        with:
+          python-version: '3.8'
 
       - name: requirements
         run : pip3 install -r requirements.txt
