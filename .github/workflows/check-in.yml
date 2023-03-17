@@ -54,8 +54,8 @@ jobs:
         done
     - name: Commit
       run: |
-        git config --global user.email 349589369@qq.com
-        git config --global user.name Jejz168
+        git config --global user.email "github-actions[bot]@users.noreply.github.com"
+        git config --global user.name "github-actions[bot]"
         git add .
         git commit -m "Update time.log" -a
     - name: Push changes
